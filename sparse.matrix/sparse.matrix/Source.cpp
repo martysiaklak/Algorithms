@@ -6,7 +6,7 @@
 
 using namespace std;
 
-struct Element  
+struct Item  
 {
     int col;
     int value;
@@ -17,10 +17,8 @@ class SparseMatrix
 private:
     int rows;
     int cols;
-    list<list<Element>> matrix;   
-    //a list of lists of Element objects
-    //each list represents a row of the matrix
-
+    list<list<Item>> matrix;   
+    //список списків, кожен з яких зберігає елементи матриці
 public:
     SparseMatrix(int rows, int cols)  //створення пустої матриці
     {
@@ -28,7 +26,7 @@ public:
         this->cols = cols;
         for (int i = 0; i < rows; i++) 
         {
-            matrix.push_back(list<Element>());
+            matrix.push_back(list<Item>());
         }
     }
 
@@ -43,13 +41,13 @@ public:
         {
             return;
         }
-        auto it = matrix.begin(); //створення локальної змінної it та ініціалізація її ітератором, що вказує на початок списку рядків матриці
-        advance(it, row); //дозволяє пересунути ітератор it на потрібний рядок у списку
+        auto it = matrix.begin(); // ініціалізація ітератора, що вказує на початок списку рядків матриці
+        advance(it, row); // дозволяє пересунути ітератор it на потрібний рядок у списку
         auto& rowList = *it; 
         // *it повертає список елементів у потрібному рядку матриці. Цей список потім зберігається у змінній rowList
         for (auto it = rowList.begin(); it != rowList.end(); it++) 
         {
-            if (it->col == col) //дописати
+            if (it->col == col) 
             {
                 it->value = value;
                 return;
@@ -65,9 +63,10 @@ public:
             cerr << "Invalid position" << endl;
             return 0;
         }
-        auto it = matrix.begin();
+        auto it = matrix.begin(); // ініціалізація ітератора, що вказує на початок списку рядків матриці
         advance(it, row);
         auto& rowList = *it;
+        // *it повертає список елементів у потрібному рядку матриці. Цей список потім зберігається у змінній rowList
         for (auto& el : rowList) 
         {
             if (el.col == col) 

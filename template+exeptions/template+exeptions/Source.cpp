@@ -35,7 +35,39 @@ void print(vector<T> array)
 int main()
 {
 	try {
-		vector<int> int_array = {1,2,3,4,0,9,8,7,6,5};
+		cout << "Integer array" << endl;
+		cout << "enter size:" << endl;
+		int size;
+		cin >> size;
+		if (size <= 0)
+		{
+			throw invalid_argument("There have to be elements in integer array");
+		}
+		vector<int> int_array(size);
+		for (int i = 0; i < size; i++) 
+		{
+			cin>>int_array[i];
+			if (int_array[i] != int(int_array[i]))
+			{
+				throw invalid_argument("Elements of array need to be integer");
+			}
+		}
+
+		cout << "String array" << endl;
+		cout << "enter size:" << endl;
+		int size1;
+		cin >> size1;
+		if (size1 <= 0)
+		{
+			throw invalid_argument("There have to be elements in string array");
+		}
+		vector<int> string_array(size1);
+		for (int i = 0; i < size1; i++)
+		{
+			cin >> string_array[i];
+		}
+
+		/*vector<int> int_array = {1,2,3,4,0,9,8,7,6,5};
 		if (int_array.size()==0)
 		{
 			throw invalid_argument("No elements in integer array");   
@@ -45,7 +77,7 @@ int main()
 		if (string_array.size() == 0)
 		{
 			throw invalid_argument("No elements in string array");     
-		}
+		}*/
 
 		func(int_array, int_array.size());
 		print(int_array);
