@@ -5,8 +5,6 @@
 #include "doctest.h"
 using namespace std;
 
-
- //якщо повна то якось вирішити проблему
 class Queue
 {
     int* arr;       
@@ -57,12 +55,9 @@ public:
         return (size() == capacity);
     }
 
-    // adds an item to the queue
-    void insert(int item)
+    // adds an item to the queue  
+    void enqueue(int item)
     {
-       /* try
-        {*/
-            // check for queue overflow
             if (isFull())
             {
                 throw logic_error("Data structure is full");
@@ -70,17 +65,10 @@ public:
             rear = (rear + 1) % capacity;
             arr[rear] = item;
             count++;
-       /* }
-        catch (logic_error e)
-        {
-            cerr << "Error:" << e.what() << endl;
-        }*/
     }
     // removes the front element and returns it
-    int remove()
+    int dequeue()
     {
-        /*try
-        {*/
             // check for queue underflow
             if (isEmpty())
             {
@@ -92,25 +80,7 @@ public:
             count--;
             return x;
         }
-  /*        catch (logic_error e)
-      {
-          cerr << "Error:" << e.what() << endl;
-      }
-    }*/
 };
-//TEST_CASE("Erasing values from table")
-//{
-//    Table table;
-//    table.Set(1, "Hello");
-//    table.Set(2, "World");
-//    table.Set(3, "!");
-//    table.EraseByKey(1);
-//    table.EraseByKey(2);
-//    table.EraseByKey(3);
-//    CHECK_THROWS(table.Get(1));
-//    CHECK_THROWS(table.Get(2));
-//    CHECK_THROWS(table.Get(3));
-//}
 TEST_CASE("Queue initialization and size check")
 {
     Queue q(5);
@@ -120,45 +90,45 @@ TEST_CASE("Queue initialization and size check")
 TEST_CASE("Inserting elements into queue")
 {
     Queue q(3);
-    q.insert(10);
-    q.insert(20);
-    q.insert(30);
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
     // Trying to insert into a full queue should throw an exception
-    CHECK_THROWS(q.insert(40));
+    CHECK_THROWS(q.enqueue(40));
 }
 
 TEST_CASE("Removing elements from queue")
 {
     Queue q(3);
-    q.insert(10);
-    q.insert(20);
-    q.insert(30);
-    CHECK(q.remove() == 10);
-    CHECK(q.remove() == 20);
-    CHECK(q.remove() == 30);
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    CHECK(q.dequeue() == 10);
+    CHECK(q.dequeue() == 20);
+    CHECK(q.dequeue() == 30);
     // Trying to remove from an empty queue should throw an exception
-    CHECK_THROWS(q.remove());
-    q.insert(10);
-    q.insert(20);
-    q.insert(30);
-    CHECK(q.remove() == 10);
-    q.insert(30);
-    CHECK(q.remove() == 20);
+    CHECK_THROWS(q.dequeue());
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
+    CHECK(q.dequeue() == 10);
+    q.enqueue(30);
+    CHECK(q.dequeue() == 20);
     
 }
 
 TEST_CASE("Peeking into the front of the queue")
 {
     Queue q(3);
-    q.insert(10);
-    q.insert(20);
-    q.insert(30);
+    q.enqueue(10);
+    q.enqueue(20);
+    q.enqueue(30);
     CHECK(q.peek() == 10);
-    q.remove();
+    q.dequeue();
     CHECK(q.peek() == 20);
-    q.remove();
+    q.dequeue();
     CHECK(q.peek() == 30);
-    q.remove();
+    q.dequeue();
     // Trying to peek into an empty queue should throw an exception
     CHECK_THROWS(q.peek());
 }
